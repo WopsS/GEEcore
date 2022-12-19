@@ -1,0 +1,6 @@
+Name: @PROJECT_NAME@
+Description: A library that contains core utilities to create script extenders for different games.
+URL: https://github.com/WopsS/@PROJECT_NAME@
+Version: @PROJECT_VERSION@
+Cflags: -I@GEECORE_PKG_CONFIG_INCLUDE_DIR@
+Libs: -L@GEECORE_PKG_CONFIG_LIB_DIR@ -l@PROJECT_NAME@
