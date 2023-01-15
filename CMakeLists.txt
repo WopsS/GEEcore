@@ -24,8 +24,21 @@ set(GEECORE_CMAKE_DIR "${PROJECT_SOURCE_DIR}/cmake")
 set(GEECORE_CMAKE_TEMPLATES_DIR "${GEECORE_CMAKE_DIR}/templates")
 set(GEECORE_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/include/")
 
+if(PROJECT_IS_TOP_LEVEL)
+  option(GEECORE_BUILD_TESTS "Build unit tests." ON)
+endif()
+
 # -----------------------------------------------------------------------------
-# Options related to compiler warnings
+# Dependencies
+# -----------------------------------------------------------------------------
+include(cmake/ConfigureAndIncludeFmt.cmake)
+
+if(GEECORE_BUILD_TESTS)
+  include(cmake/ConfigureAndIncludeCatch2.cmake)
+endif()
+
+# -----------------------------------------------------------------------------
+# Options related to compiler warnings related only to this project
 # -----------------------------------------------------------------------------
 if(PROJECT_IS_TOP_LEVEL)
   option(GEECORE_EXTRA_WARNINGS "Enable extra warnings." ON)
@@ -100,15 +113,17 @@ target_sources(
       ${GEECORE_SRC_FILES}
 )
 
+target_link_libraries(
+  GEEcore
+    PUBLIC
+      fmt::fmt
+)
+
 # -----------------------------------------------------------------------------
 # Tests
 # -----------------------------------------------------------------------------
-if(PROJECT_IS_TOP_LEVEL)
-  option(GEECORE_BUILD_TESTS "Build unit tests." ON)
-  if(GEECORE_BUILD_TESTS)
-    include(cmake/ConfigureAndIncludeCatch2.cmake)
-    add_subdirectory(tests)
-  endif()
+if(GEECORE_BUILD_TESTS)
+  add_subdirectory(tests)
 endif()
 
 # -----------------------------------------------------------------------------
