@@ -38,6 +38,7 @@ jobs:
           cmake `
             -DCMAKE_CXX_STANDARD=${{ matrix.cpp-standard }} `
             -DGEECORE_INSTALL=ON `
+            -DGEECORE_BUILD_TESTS=ON `
             -DGEECORE_EXTRA_WARNINGS=ON `
             -DGEECORE_TREAT_WARNINGS_AS_ERRORS=ON `
             ${{ github.workspace }}
@@ -48,3 +49,7 @@ jobs:
           cmake `
             --build . `
             --config ${{ matrix.config }}
+
+      - name: Test
+        working-directory: build/tests/${{ matrix.config }}
+        run: ./Tests.exe

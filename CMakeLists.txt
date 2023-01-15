@@ -28,7 +28,7 @@ set(GEECORE_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/include/")
 # Options related to compiler warnings
 # -----------------------------------------------------------------------------
 if(PROJECT_IS_TOP_LEVEL)
-  option(GEECORE_EXTRA_WARNINGS "Enable extra warnings." OFF)
+  option(GEECORE_EXTRA_WARNINGS "Enable extra warnings." ON)
   if(GEECORE_EXTRA_WARNINGS)
     if(MSVC)
       add_compile_options(/W4)
@@ -58,6 +58,9 @@ endif()
 # -----------------------------------------------------------------------------
 # Main library
 # -----------------------------------------------------------------------------
+add_library(GEEcore STATIC)
+add_library(GEEcore::GEEcore ALIAS GEEcore)
+
 set(
   GEECORE_HEADER_FILES
     include/geecore/geecore.hpp
@@ -83,19 +86,30 @@ if(GEECORE_USE_FOLDERS)
   )
 endif()
 
-add_library(
-  GEEcore STATIC
-  ${GEECORE_HEADER_FILES}
-  ${GEECORE_SRC_FILES}
-)
-add_library(GEEcore::GEEcore ALIAS GEEcore)
-
 target_include_directories(
   GEEcore
     PUBLIC
       "$<BUILD_INTERFACE:${GEECORE_INCLUDE_DIR}>"
       "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 )
+
+target_sources(
+  GEEcore
+    PRIVATE
+      ${GEECORE_HEADER_FILES}
+      ${GEECORE_SRC_FILES}
+)
+
+# -----------------------------------------------------------------------------
+# Tests
+# -----------------------------------------------------------------------------
+if(PROJECT_IS_TOP_LEVEL)
+  option(GEECORE_BUILD_TESTS "Build unit tests." ON)
+  if(GEECORE_BUILD_TESTS)
+    include(cmake/ConfigureAndIncludeCatch2.cmake)
+    add_subdirectory(tests)
+  endif()
+endif()
 
 # -----------------------------------------------------------------------------
 # Install
