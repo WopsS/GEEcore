@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        cpp-standard: [20, 23]
+        cpp-standard: [23]
         config: [Debug, Release, MinSizeRel, RelWithDebInfo]
 
     steps:

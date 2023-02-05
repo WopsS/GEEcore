@@ -9,14 +9,14 @@ project(
 # -----------------------------------------------------------------------------
 # General configuration and variables
 # -----------------------------------------------------------------------------
-if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 20)
-  set(CMAKE_CXX_STANDARD_REQUIRED ON)
-elseif(CMAKE_CXX_STANDARD LESS 20)
-  message(FATAL_ERROR "GEEcore requires C++20 or higher.")
-endif()
-
 if(PROJECT_IS_TOP_LEVEL)
+  if(NOT CMAKE_CXX_STANDARD)
+    set(CMAKE_CXX_STANDARD 23)
+    set(CMAKE_CXX_STANDARD_REQUIRED ON)
+  elseif(CMAKE_CXX_STANDARD LESS 23)
+    message(FATAL_ERROR "GEEcore requires C++23 or higher.")
+  endif()
+
   set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 endif()
 
