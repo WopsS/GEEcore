@@ -2,7 +2,7 @@ add_executable(Tests)
 
 set(
   GEECORE_TESTS_SRC_FILES
-    dummy.cpp
+    exceptions.cpp
 )
 
 source_group(
