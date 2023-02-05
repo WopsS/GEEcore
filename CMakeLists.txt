@@ -7,7 +7,7 @@ project(
 )
 
 # -----------------------------------------------------------------------------
-# General configuration / options / variables
+# General configuration and variables
 # -----------------------------------------------------------------------------
 if(NOT CMAKE_CXX_STANDARD)
   set(CMAKE_CXX_STANDARD 20)
@@ -24,8 +24,15 @@ set(GEECORE_CMAKE_DIR "${PROJECT_SOURCE_DIR}/cmake")
 set(GEECORE_CMAKE_TEMPLATES_DIR "${GEECORE_CMAKE_DIR}/templates")
 set(GEECORE_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/include/")
 
+# -----------------------------------------------------------------------------
+# Options
+# -----------------------------------------------------------------------------
+option(GEECORE_INSTALL "Generate the install target." ${PROJECT_IS_TOP_LEVEL})
+
 if(PROJECT_IS_TOP_LEVEL)
   option(GEECORE_BUILD_TESTS "Build unit tests." ON)
+  option(GEECORE_EXTRA_WARNINGS "Enable extra warnings." ON)
+  option(GEECORE_TREAT_WARNINGS_AS_ERRORS "Treat compiler warnings as errors." OFF)
 endif()
 
 # -----------------------------------------------------------------------------
@@ -40,31 +47,27 @@ endif()
 # -----------------------------------------------------------------------------
 # Options related to compiler warnings related only to this project
 # -----------------------------------------------------------------------------
-if(PROJECT_IS_TOP_LEVEL)
-  option(GEECORE_EXTRA_WARNINGS "Enable extra warnings." ON)
-  if(GEECORE_EXTRA_WARNINGS)
-    if(MSVC)
-      add_compile_options(/W4)
-    else()
-      message(
-        FATAL_ERROR
-        "The compiler options to enable extra warnings is not known for \
-        '${CMAKE_CXX_COMPILER_ID}'"
-      )
-    endif()
+if(GEECORE_EXTRA_WARNINGS)
+  if(MSVC)
+    add_compile_options(/W4)
+  else()
+    message(
+      FATAL_ERROR
+      "The compiler options to enable extra warnings is not known for \
+      '${CMAKE_CXX_COMPILER_ID}'"
+    )
   endif()
+endif()
 
-  option(GEECORE_TREAT_WARNINGS_AS_ERRORS "Treat compiler warnings as errors." OFF)
-  if(GEECORE_TREAT_WARNINGS_AS_ERRORS)
-    if(MSVC)
-      add_compile_options(/WX)
-    else()
-      message(
-        FATAL_ERROR
-        "The compiler option to treat warnings as errors is not known for \
-        '${CMAKE_CXX_COMPILER_ID}'"
-      )
-    endif()
+if(GEECORE_TREAT_WARNINGS_AS_ERRORS)
+  if(MSVC)
+    add_compile_options(/WX)
+  else()
+    message(
+      FATAL_ERROR
+      "The compiler option to treat warnings as errors is not known for \
+      '${CMAKE_CXX_COMPILER_ID}'"
+    )
   endif()
 endif()
 
@@ -72,7 +75,7 @@ endif()
 # Main library
 # -----------------------------------------------------------------------------
 add_library(GEEcore STATIC)
-add_library(GEEcore::GEEcore ALIAS GEEcore)
+add_library(wopss::GEEcore ALIAS GEEcore)
 
 set(
   GEECORE_HEADER_FILES
@@ -130,7 +133,6 @@ endif()
 # Install
 # -----------------------------------------------------------------------------
 if(NOT CMAKE_SKIP_INSTALL_RULES)
-  option(GEECORE_INSTALL "Generate the install target." ${PROJECT_IS_TOP_LEVEL})
   if(GEECORE_INSTALL)
     include(CMakePackageConfigHelpers)
     include(GNUInstallDirs)
@@ -182,7 +184,7 @@ if(NOT CMAKE_SKIP_INSTALL_RULES)
 
     install(
       EXPORT ${GEECORE_EXPORT_TARGETS}
-      NAMESPACE GEEcore::
+      NAMESPACE wopss::
       DESTINATION "${GEECORE_INSTALL_CONFIG_DIR}"
     )
 
