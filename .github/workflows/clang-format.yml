@@ -6,7 +6,7 @@ on:
   pull_request:
 
 env:
-  LLVM_VERSION: 15
+  LLVM_VERSION: 16
 
 jobs:
   format:
@@ -29,19 +29,10 @@ jobs:
             GEECORE_COMMIT_BEFORE: ${{ github.event.pull_request.base.sha || github.event.before }}
             GEECORE_COMMIT_AFTER: ${{ github.sha }}
         run: |
-          $output = (git `
-                      -c core.autocrlf=false `
-                      -c core.eol=lf `
-                      -c color.ui=always `
-                      clang-format `
-                        --style file `
-                        --diff $env:GEECORE_COMMIT_BEFORE $env:GEECORE_COMMIT_AFTER
-                    )?.Trim()
-
-          Write-Output $output
-
-          # A temporary fix for https://github.com/llvm/llvm-project/issues/56736.
-          # TODO: Once LLVM 16 is released, reduce this to only the "git ... clang-format ..." command.
-          if ($LASTEXITCODE -eq 1 -and !$output) {
-            exit 0
-          }
+          git `
+            -c core.autocrlf=false `
+            -c core.eol=lf `
+            -c color.ui=always `
+            clang-format `
+              --style file `
+              --diff $env:GEECORE_COMMIT_BEFORE $env:GEECORE_COMMIT_AFTER
