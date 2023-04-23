@@ -3,7 +3,13 @@ name: Clang-Format Workflow
 on:
   push:
     branches: '**'
+    paths:
+      - '**.hpp'
+      - '**.cpp'
   pull_request:
+    paths:
+      - '**.hpp'
+      - '**.cpp'
 
 env:
   LLVM_VERSION: 16

@@ -5,6 +5,7 @@ Language: Cpp
 
 AccessModifierOffset: -4
 AlwaysBreakTemplateDeclarations: Yes
+AttributeBreakingStyle: Always
 BreakBeforeBraces: Allman
 BreakConstructorInitializers: BeforeComma
 BreakInheritanceList: BeforeComma
