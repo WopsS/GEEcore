@@ -80,6 +80,7 @@ add_library(wopss::GEEcore ALIAS GEEcore)
 set(
   GEECORE_HEADER_FILES
     include/geecore/exceptions.hpp
+    include/geecore/special_member_functions.hpp
 )
 
 set(
