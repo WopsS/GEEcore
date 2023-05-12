@@ -79,13 +79,14 @@ add_library(wopss::GEEcore ALIAS GEEcore)
 
 set(
   GEECORE_HEADER_FILES
-    include/geecore/exceptions.hpp
-    include/geecore/special_member_functions.hpp
+    include/geecore/Exception.hpp
+
+    include/geecore/SpecialMemberFunctions.hpp
 )
 
 set(
   GEECORE_SRC_FILES
-    src/exceptions.cpp
+    src/Exception.cpp
 )
 
 get_property(GEECORE_USE_FOLDERS GLOBAL PROPERTY USE_FOLDERS)

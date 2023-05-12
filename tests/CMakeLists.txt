@@ -2,8 +2,8 @@ add_executable(Tests)
 
 set(
   GEECORE_TESTS_SRC_FILES
-    exceptions.cpp
-    special_member_functions.cpp
+    Exception.cpp
+    SpecialMemberFunctions.cpp
 )
 
 source_group(

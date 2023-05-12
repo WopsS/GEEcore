@@ -3,30 +3,30 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <geecore/special_member_functions.hpp>
+#include <geecore/SpecialMemberFunctions.hpp>
 
 TEST_CASE("an object should be copyable when using 'GEECORE_COPYABLE' macro", "[special_member_functions]")
 {
-    struct test_struct
+    struct TestStruct
     {
-        test_struct() noexcept
+        TestStruct() noexcept
             : m_some_member(1)
         {
         }
 
-        test_struct(test_struct&& rhs) noexcept
+        TestStruct(TestStruct&& rhs) noexcept
             : m_some_member(rhs.m_some_member)
         {
         }
 
-        test_struct& operator=(test_struct&& rhs) noexcept
+        TestStruct& operator=(TestStruct&& rhs) noexcept
         {
             m_some_member = std::move(rhs.m_some_member);
         }
 
-        ~test_struct() noexcept = default;
+        ~TestStruct() noexcept = default;
 
-        GEECORE_COPYABLE(test_struct);
+        GEECORE_COPYABLE(TestStruct);
 
     private:
         std::int32_t m_some_member;
@@ -34,36 +34,37 @@ TEST_CASE("an object should be copyable when using 'GEECORE_COPYABLE' macro", "[
 
     SECTION("and the copy constructor is called")
     {
-        REQUIRE(std::is_copy_constructible_v<test_struct>);
+        REQUIRE(std::is_copy_constructible_v<TestStruct>);
     }
     SECTION("and the copy assignment operator is called")
     {
-        REQUIRE(std::is_copy_assignable_v<test_struct>);
+        REQUIRE(std::is_copy_assignable_v<TestStruct>);
     }
 }
+
 TEST_CASE("an object should be nothrow copyable when using 'GEECORE_NOEXCEPT_COPYABLE' macro",
           "[special_member_functions]")
 {
-    struct test_struct
+    struct TestStruct
     {
-        test_struct() noexcept
+        TestStruct() noexcept
             : m_some_member(1)
         {
         }
 
-        test_struct(test_struct&& rhs) noexcept
+        TestStruct(TestStruct&& rhs) noexcept
             : m_some_member(rhs.m_some_member)
         {
         }
 
-        test_struct& operator=(test_struct&& rhs) noexcept
+        TestStruct& operator=(TestStruct&& rhs) noexcept
         {
             m_some_member = std::move(rhs.m_some_member);
         }
 
-        ~test_struct() noexcept = default;
+        ~TestStruct() noexcept = default;
 
-        GEECORE_NOEXCEPT_COPYABLE(test_struct);
+        GEECORE_NOEXCEPT_COPYABLE(TestStruct);
 
     private:
         std::int32_t m_some_member;
@@ -71,25 +72,25 @@ TEST_CASE("an object should be nothrow copyable when using 'GEECORE_NOEXCEPT_COP
 
     SECTION("and the copy constructor is called")
     {
-        REQUIRE(std::is_nothrow_copy_constructible_v<test_struct>);
+        REQUIRE(std::is_nothrow_copy_constructible_v<TestStruct>);
     }
     SECTION("and the copy assignment operator is called")
     {
-        REQUIRE(std::is_nothrow_copy_assignable_v<test_struct>);
+        REQUIRE(std::is_nothrow_copy_assignable_v<TestStruct>);
     }
 }
 
 TEST_CASE("an object should be nothrow moveable when using 'GEECORE_NOEXCEPT_MOVEABLE' macro",
           "[special_member_functions]")
 {
-    struct test_struct
+    struct TestStruct
     {
-        test_struct()
+        TestStruct()
             : m_some_member(new int(1))
         {
         }
 
-        test_struct(const test_struct& rhs)
+        TestStruct(const TestStruct& rhs)
             : m_some_member(new int(2))
         {
             if (rhs.m_some_member)
@@ -98,7 +99,7 @@ TEST_CASE("an object should be nothrow moveable when using 'GEECORE_NOEXCEPT_MOV
             }
         }
 
-        test_struct& operator=(const test_struct& rhs)
+        TestStruct& operator=(const TestStruct& rhs)
         {
             if (this != &rhs)
             {
@@ -116,12 +117,12 @@ TEST_CASE("an object should be nothrow moveable when using 'GEECORE_NOEXCEPT_MOV
             }
         }
 
-        ~test_struct() noexcept
+        ~TestStruct() noexcept
         {
             delete m_some_member;
         }
 
-        GEECORE_NOEXCEPT_MOVEABLE(test_struct);
+        GEECORE_NOEXCEPT_MOVEABLE(TestStruct);
 
     private:
         std::int32_t* m_some_member;
@@ -129,44 +130,44 @@ TEST_CASE("an object should be nothrow moveable when using 'GEECORE_NOEXCEPT_MOV
 
     SECTION("and the move constructor is called")
     {
-        REQUIRE(std::is_nothrow_move_constructible_v<test_struct>);
+        REQUIRE(std::is_nothrow_move_constructible_v<TestStruct>);
     }
     SECTION("and the move assignment operator is called")
     {
-        REQUIRE(std::is_nothrow_move_assignable_v<test_struct>);
+        REQUIRE(std::is_nothrow_move_assignable_v<TestStruct>);
     }
 }
 
 TEST_CASE("an object should be non-copyable when using 'GEECORE_NON_COPYABLE' macro", "[special_member_functions]")
 {
-    struct test_struct
+    struct TestStruct
     {
-        GEECORE_NON_COPYABLE(test_struct);
+        GEECORE_NON_COPYABLE(TestStruct);
     };
 
     SECTION("and the copy constructor is called")
     {
-        REQUIRE(!std::is_nothrow_copy_constructible_v<test_struct>);
+        REQUIRE(!std::is_nothrow_copy_constructible_v<TestStruct>);
     }
     SECTION("and the copy assignment operator is called")
     {
-        REQUIRE(!std::is_nothrow_copy_assignable_v<test_struct>);
+        REQUIRE(!std::is_nothrow_copy_assignable_v<TestStruct>);
     }
 }
 
 TEST_CASE("an object should be non-movable when using 'GEECORE_NON_MOVEABLE' macro", "[special_member_functions]")
 {
-    struct test_struct
+    struct TestStruct
     {
-        GEECORE_NON_MOVEABLE(test_struct);
+        GEECORE_NON_MOVEABLE(TestStruct);
     };
 
     SECTION("and the move constructor is called")
     {
-        REQUIRE(!std::is_nothrow_move_constructible_v<test_struct>);
+        REQUIRE(!std::is_nothrow_move_constructible_v<TestStruct>);
     }
     SECTION("and the move assignment operator is called")
     {
-        REQUIRE(!std::is_nothrow_move_assignable_v<test_struct>);
+        REQUIRE(!std::is_nothrow_move_assignable_v<TestStruct>);
     }
 }

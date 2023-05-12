@@ -1,8 +1,6 @@
-#include <geecore/exceptions.hpp>
+#include <geecore/Exception.hpp>
 
-#include <Windows.h>
-
-geecore::exception::exception(
+geecore::Exception::Exception(
     std::string_view what_msg, std::stacktrace stacktrace,
     const std::function<void(std::back_insert_iterator<fmt::memory_buffer>&)>& details_appender_fn,
     const std::function<void(std::back_insert_iterator<fmt::memory_buffer>&)>& extra_message_appender_fn)
@@ -10,7 +8,7 @@ geecore::exception::exception(
 {
 }
 
-std::string geecore::exception::create_message(
+std::string geecore::Exception::create_message(
     std::string_view what_msg, std::stacktrace stacktrace,
     const std::function<void(std::back_insert_iterator<fmt::memory_buffer>&)>& details_appender_fn,
     const std::function<void(std::back_insert_iterator<fmt::memory_buffer>&)>& extra_message_appender_fn)
