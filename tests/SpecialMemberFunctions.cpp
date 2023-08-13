@@ -1,9 +1,9 @@
+#include <geecore/SpecialMemberFunctions.hpp>
+
 #include <cstdint>
 #include <type_traits>
 
 #include <catch2/catch_test_macros.hpp>
-
-#include <geecore/SpecialMemberFunctions.hpp>
 
 TEST_CASE("an object should be copyable when using 'GEECORE_COPYABLE' macro", "[special_member_functions]")
 {
