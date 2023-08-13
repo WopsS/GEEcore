@@ -9,6 +9,7 @@ on:
       - '**/CMakeLists.txt'
       - 'cmake/**'
       - 'deps/**'
+      - '.github/workflows/build.yml'
   pull_request:
     paths:
       - '**.hpp'
@@ -16,6 +17,7 @@ on:
       - '**/CMakeLists.txt'
       - 'cmake/**'
       - 'deps/**'
+      - '.github/workflows/build.yml'
 
 jobs:
   build:
@@ -56,4 +58,4 @@ jobs:
 
       - name: Test
         working-directory: build/tests/${{ matrix.config }}
-        run: ./Tests.exe
+        run: ./Tests.exe --order rand --warn NoAssertions
