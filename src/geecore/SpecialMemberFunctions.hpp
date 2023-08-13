@@ -23,3 +23,7 @@
 #define GEECORE_NON_MOVEABLE(cls)                                                                                      \
     cls(cls&&) = delete;                                                                                               \
     cls& operator=(cls&&) = delete
+
+#define GEECORE_NON_COPYABLE_AND_NON_MOVEABLE(cls)                                                                     \
+    GEECORE_NON_COPYABLE(cls);                                                                                         \
+    GEECORE_NON_MOVEABLE(cls)

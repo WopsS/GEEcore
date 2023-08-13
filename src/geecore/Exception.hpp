@@ -5,6 +5,7 @@
 #include <stacktrace>
 #include <stdexcept>
 #include <string>
+#include <type_traits>
 
 #include <fmt/format.h>
 
@@ -33,7 +34,8 @@ public:
      * @throw std::bad_alloc
      */
     Exception(
-        std::string_view what_msg, std::stacktrace stacktrace = std::stacktrace::current(),
+        std::string_view what_msg,
+        std::stacktrace stacktrace = std::stacktrace::current(),
         const std::function<void(std::back_insert_iterator<fmt::memory_buffer>&)>& details_appender_fn = {},
         const std::function<void(std::back_insert_iterator<fmt::memory_buffer>&)>& extra_message_appender_fn = {});
 
@@ -42,8 +44,10 @@ public:
     virtual ~Exception() noexcept(std::is_nothrow_destructible_v<std::runtime_error>) = default;
 
 private:
-    [[nodiscard]] static std::string create_message(
-        std::string_view what_msg, std::stacktrace stacktrace,
+    [[nodiscard]]
+    static std::string create_message(
+        std::string_view what_msg,
+        std::stacktrace stacktrace,
         const std::function<void(std::back_insert_iterator<fmt::memory_buffer>&)>& details_appender_fn = {},
         const std::function<void(std::back_insert_iterator<fmt::memory_buffer>&)>& extra_message_appender_fn = {});
 };

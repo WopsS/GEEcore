@@ -22,7 +22,8 @@ endif()
 
 set(GEECORE_CMAKE_DIR "${PROJECT_SOURCE_DIR}/cmake")
 set(GEECORE_CMAKE_TEMPLATES_DIR "${GEECORE_CMAKE_DIR}/templates")
-set(GEECORE_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/include/")
+set(GEECORE_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/src/")
+set(GEECORE_SRC_DIR "${PROJECT_SOURCE_DIR}/src/geecore")
 
 # -----------------------------------------------------------------------------
 # Options
@@ -79,14 +80,14 @@ add_library(wopss::GEEcore ALIAS GEEcore)
 
 set(
   GEECORE_HEADER_FILES
-    include/geecore/Exception.hpp
+    ${GEECORE_SRC_DIR}/Exception.hpp
+    ${GEECORE_SRC_DIR}/SpecialMemberFunctions.hpp
 
-    include/geecore/SpecialMemberFunctions.hpp
 )
 
 set(
   GEECORE_SRC_FILES
-    src/Exception.cpp
+    ${GEECORE_SRC_DIR}/Exception.cpp
 )
 
 get_property(GEECORE_USE_FOLDERS GLOBAL PROPERTY USE_FOLDERS)
@@ -94,13 +95,10 @@ if(GEECORE_USE_FOLDERS)
   source_group(cmake REGULAR_EXPRESSION cmake_pch.*)
 
   source_group(
-    TREE "${GEECORE_INCLUDE_DIR}/geecore"
-    FILES ${GEECORE_HEADER_FILES}
-  )
-
-  source_group(
-    TREE "${PROJECT_SOURCE_DIR}/src"
-    FILES ${GEECORE_SRC_FILES}
+    TREE "${GEECORE_SRC_DIR}"
+    FILES
+      ${GEECORE_HEADER_FILES}
+      ${GEECORE_SRC_FILES}
   )
 endif()
 
@@ -165,6 +163,7 @@ if(NOT CMAKE_SKIP_INSTALL_RULES)
     install(
       DIRECTORY "${GEECORE_INCLUDE_DIR}/"
       DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
+      FILES_MATCHING PATTERN "*.hpp"
     )
 
     install(
