@@ -43,6 +43,7 @@ include(cmake/ConfigureAndIncludeFmt.cmake)
 
 if(GEECORE_BUILD_TESTS)
   include(cmake/ConfigureAndIncludeCatch2.cmake)
+  include(cmake/ConfigureAndIncludeTrompeloeil.cmake)
 endif()
 
 # -----------------------------------------------------------------------------
@@ -83,6 +84,14 @@ set(
     ${GEECORE_SRC_DIR}/Exception.hpp
     ${GEECORE_SRC_DIR}/SpecialMemberFunctions.hpp
 
+
+    ${GEECORE_SRC_DIR}/drivers/IMsgBoxDriver.hpp
+    ${GEECORE_SRC_DIR}/detail/drivers/Win32MsgBoxDriver.hpp
+
+    ${GEECORE_SRC_DIR}/MsgBox.hpp
+    ${GEECORE_SRC_DIR}/MsgBoxPrimitives.hpp
+    ${GEECORE_SRC_DIR}/detail/BaseMsgBox.hpp
+    ${GEECORE_SRC_DIR}/detail/BasicMsgBoxExceptionless.hpp
 )
 
 set(

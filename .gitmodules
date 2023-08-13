@@ -4,3 +4,6 @@
 [submodule "deps/fmt"]
 	path = deps/fmt
 	url = https://github.com/fmtlib/fmt.git
+[submodule "deps/trompeloeil"]
+	path = deps/trompeloeil
+	url = https://github.com/rollbear/trompeloeil.git

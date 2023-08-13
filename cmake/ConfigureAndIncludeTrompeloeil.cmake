@@ -1,0 +1,9 @@
+option(TROMPELOEIL_INSTALL_DOCS "" OFF)
+option(TROMPELOEIL_INSTALL_TARGETS "" OFF)
+
+add_subdirectory(deps/trompeloeil)
+
+mark_as_advanced(
+  TROMPELOEIL_INSTALL_DOCS
+  TROMPELOEIL_INSTALL_TARGETS
+)
