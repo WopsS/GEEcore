@@ -1,7 +1,7 @@
 import { DefaultTheme, defineConfig } from "vitepress";
 
 export default defineConfig({
-    base: "/geecore/",
+    base: "/GEEcore/",
 
     lang: "en-US",
     title: "GEEcore",
