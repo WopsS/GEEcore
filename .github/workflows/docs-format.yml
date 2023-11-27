@@ -1,0 +1,40 @@
+name: Format Workflow (docs)
+
+on:
+  push:
+    branches: "**"
+    paths:
+      - "docs/**"
+      - '.github/workflows/docs-format.yml'
+  pull_request:
+    paths:
+      - "docs/**"
+      - '.github/workflows/docs-format.yml'
+
+env:
+  NODE_VERSION: lts/*
+
+jobs:
+  format:
+    name: Check the formatting (docs)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          check-latest: true
+          cache: npm
+          cache-dependency-path: docs/package-lock.json
+
+      - name: Install dependencies
+        working-directory: docs
+        run: npm ci
+
+      - name: Run the formatter
+        working-directory: docs
+        run: npm run format:check

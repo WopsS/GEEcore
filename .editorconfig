@@ -3,15 +3,17 @@ root = true
 [*]
 charset = utf-8
 indent_style = space
+end_of_line = lf
 
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-[*.{c,h,cpp,hpp}]
-indent_size = 4
-
-[*.{md,yml}]
+[*.{json,md,yml}]
 indent_size = 2
 
 [{CMakeLists.txt,*.cmake}]
 indent_size = 2
+
+[*.{cpp,hpp,mts}]
+indent_size = 4
+

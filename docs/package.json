@@ -1,0 +1,16 @@
+{
+  "name": "geecore",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "format:check": "prettier . --check",
+    "format:fix": "prettier . --write",
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview"
+  },
+  "devDependencies": {
+    "prettier": "^3.1.0",
+    "vitepress": "^1.0.0-rc.31"
+  }
+}
