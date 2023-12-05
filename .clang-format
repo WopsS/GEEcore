@@ -1,7 +1,8 @@
 ---
-BasedOnStyle: Microsoft
+DisableFormat: true
 ---
 Language: Cpp
+BasedOnStyle: Microsoft
 
 AccessModifierOffset: -4
 AllowAllArgumentsOnNextLine: false
