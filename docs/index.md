@@ -5,7 +5,9 @@ titleTemplate: Game Engine Extender core utilities
 
 hero:
   name: GEEcore
-  tagline: A library that contains core utilities to create script extenders for different games.
+  tagline:
+    A library that contains core utilities to create script extenders for
+    different games.
   actions:
     - theme: brand
       text: Get Started

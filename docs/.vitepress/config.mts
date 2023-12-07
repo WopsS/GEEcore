@@ -53,9 +53,7 @@ function sidebar(): DefaultTheme.SidebarItem[] {
             text: "Contributors",
             collapsed: false,
             base: "/guide/contributors/",
-            items: [
-                { text: "Testing Guidelines", link: "testing-guidelines" }
-            ]
+            items: [{ text: "Testing Guidelines", link: "testing-guidelines" }]
         }
     ];
 }

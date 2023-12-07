@@ -11,4 +11,5 @@ To set up and run the documentation locally, follow these steps:
 3. Execute `npm install`.
 4. Run `npm run docs:dev` to start a local dev server with instant hot updates.
 
-For further details, visit [vitepress.dev](https://vitepress.dev/guide/getting-started#up-and-running).
+For further details, visit
+[vitepress.dev](https://vitepress.dev/guide/getting-started#up-and-running).
