@@ -48,6 +48,14 @@ function sidebar(): DefaultTheme.SidebarItem[] {
                 { text: "What is GEEcore?", link: "what-is-geecore" },
                 { text: "Getting Started", link: "getting-started" }
             ]
+        },
+        {
+            text: "Contributors",
+            collapsed: false,
+            base: "/guide/contributors/",
+            items: [
+                { text: "Testing Guidelines", link: "testing-guidelines" }
+            ]
         }
     ];
 }
