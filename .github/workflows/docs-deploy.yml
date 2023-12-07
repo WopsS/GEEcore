@@ -1,15 +1,15 @@
-name: Build Workflow (docs)
+name: Deploy Workflow (docs)
 
 on:
   push:
     branches: "**"
     paths:
       - "docs/**"
-      - '.github/workflows/docs-build.yml'
+      - '.github/workflows/docs-deploy.yml'
   pull_request:
     paths:
       - "docs/**"
-      - '.github/workflows/docs-build.yml'
+      - '.github/workflows/docs-deploy.yml'
   workflow_dispatch:
 
 permissions:
