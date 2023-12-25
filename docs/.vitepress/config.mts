@@ -50,6 +50,11 @@ function sidebar(): DefaultTheme.SidebarItem[] {
             ]
         },
         {
+            text: "Guide",
+            collapsed: false,
+            items: [{ text: "MessageBox", link: "messagebox" }]
+        },
+        {
             text: "Contributors",
             collapsed: false,
             base: "/guide/contributors/",
