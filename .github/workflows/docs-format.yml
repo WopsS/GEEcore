@@ -2,13 +2,13 @@ name: Format Workflow (docs)
 
 on:
   push:
-    branches: "**"
+    branches: '**'
     paths:
-      - "docs/**"
+      - 'docs/**'
       - '.github/workflows/docs-format.yml'
   pull_request:
     paths:
-      - "docs/**"
+      - 'docs/**'
       - '.github/workflows/docs-format.yml'
 
 env:
