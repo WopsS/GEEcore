@@ -60,6 +60,9 @@ include("${GEECORE_CMAKE_DIR}/SetTargetAsLoader.cmake")
 if(GEECORE_EXTRA_WARNINGS)
   if(MSVC)
     add_compile_options(/W4)
+
+    # Temporary solution for https://developercommunity.visualstudio.com/t/Unreachable-code-warning-C4702-trigger/10582835.
+    target_compile_options(kangaru INTERFACE /wd4702)
   else()
     message(
       FATAL_ERROR
@@ -72,9 +75,6 @@ endif()
 if(GEECORE_TREAT_WARNINGS_AS_ERRORS)
   if(MSVC)
     add_compile_options(/WX)
-
-    # Temporary solution for https://developercommunity.visualstudio.com/t/Unreachable-code-warning-C4702-trigger/10582835.
-    add_compile_options(/wd4702)
   else()
     message(
       FATAL_ERROR
