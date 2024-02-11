@@ -2,7 +2,8 @@ name: Deploy Workflow (docs)
 
 on:
   push:
-    branches: "**"
+    branches:
+      - master
     paths:
       - "docs/**"
       - '.github/workflows/docs-deploy.yml'
@@ -26,7 +27,7 @@ env:
 
 jobs:
   build:
-    name: Build the docs
+    name: Build
     runs-on: ubuntu-latest
 
     steps:
