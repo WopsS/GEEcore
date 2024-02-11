@@ -21,6 +21,7 @@ if(PROJECT_IS_TOP_LEVEL)
 endif()
 
 set(GEECORE_CMAKE_DIR "${PROJECT_SOURCE_DIR}/cmake")
+set(GEECORE_CMAKE_DEPS_DIR "${GEECORE_CMAKE_DIR}/deps")
 set(GEECORE_CMAKE_TEMPLATES_DIR "${GEECORE_CMAKE_DIR}/templates")
 set(GEECORE_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/src/")
 set(GEECORE_SRC_DIR "${PROJECT_SOURCE_DIR}/src/geecore")
@@ -39,12 +40,19 @@ endif()
 # -----------------------------------------------------------------------------
 # Dependencies
 # -----------------------------------------------------------------------------
-include(cmake/ConfigureAndIncludeFmt.cmake)
+include("${GEECORE_CMAKE_DEPS_DIR}/ConfigureAndIncludeFmt.cmake")
+include("${GEECORE_CMAKE_DEPS_DIR}/ConfigureAndIncludeKangaru.cmake")
+include("${GEECORE_CMAKE_DEPS_DIR}/ConfigureAndIncludeWil.cmake")
 
 if(GEECORE_BUILD_TESTS)
-  include(cmake/ConfigureAndIncludeCatch2.cmake)
-  include(cmake/ConfigureAndIncludeTrompeloeil.cmake)
+  include("${GEECORE_CMAKE_DEPS_DIR}/ConfigureAndIncludeCatch2.cmake")
+  include("${GEECORE_CMAKE_DEPS_DIR}/ConfigureAndIncludeTrompeloeil.cmake")
 endif()
+
+# -----------------------------------------------------------------------------
+# Functions
+# -----------------------------------------------------------------------------
+include("${GEECORE_CMAKE_DIR}/SetTargetAsLoader.cmake")
 
 # -----------------------------------------------------------------------------
 # Options related to compiler warnings related only to this project
@@ -81,9 +89,12 @@ add_library(wopss::GEEcore ALIAS GEEcore)
 
 set(
   GEECORE_HEADER_FILES
-    ${GEECORE_SRC_DIR}/Exception.hpp
+    ${GEECORE_SRC_DIR}/Common.hpp
+    ${GEECORE_SRC_DIR}/ILifetime.hpp
     ${GEECORE_SRC_DIR}/SpecialMemberFunctions.hpp
 
+    ${GEECORE_SRC_DIR}/Exception.hpp
+    ${GEECORE_SRC_DIR}/exceptions/Win32Exception.hpp
 
     ${GEECORE_SRC_DIR}/drivers/IMsgBoxDriver.hpp
     ${GEECORE_SRC_DIR}/detail/drivers/Win32MsgBoxDriver.hpp
@@ -92,11 +103,58 @@ set(
     ${GEECORE_SRC_DIR}/MsgBoxPrimitives.hpp
     ${GEECORE_SRC_DIR}/detail/BaseMsgBox.hpp
     ${GEECORE_SRC_DIR}/detail/BasicMsgBoxExceptionless.hpp
+
+    ${GEECORE_SRC_DIR}/IAppMetadata.hpp
+    ${GEECORE_SRC_DIR}/ILoaderAppMetadata.hpp
+
+    ${GEECORE_SRC_DIR}/Host.hpp
+    ${GEECORE_SRC_DIR}/HostBuilder.hpp
+
+    ${GEECORE_SRC_DIR}/IHostLifetime.hpp
+    ${GEECORE_SRC_DIR}/detail/LoaderLifetime.hpp
+    ${GEECORE_SRC_DIR}/detail/ModuleLifetime.hpp
+    ${GEECORE_SRC_DIR}/detail/ProxyLifetime.hpp
+
+    ${GEECORE_SRC_DIR}/IHostImage.hpp
+    ${GEECORE_SRC_DIR}/IModuleImage.hpp
+    ${GEECORE_SRC_DIR}/detail/HostImage.hpp
+    ${GEECORE_SRC_DIR}/detail/ModuleImage.hpp
+
+    ${GEECORE_SRC_DIR}/detail/DllProxy.hpp
+    ${GEECORE_SRC_DIR}/detail/proxies/D3d11Proxy.hpp
+    ${GEECORE_SRC_DIR}/detail/proxies/D3d11Proxy.functions.hpp
+    ${GEECORE_SRC_DIR}/detail/proxies/DxgiProxy.hpp
+    ${GEECORE_SRC_DIR}/detail/proxies/DxgiProxy.functions.hpp
+    ${GEECORE_SRC_DIR}/detail/proxies/VersionProxy.hpp
+    ${GEECORE_SRC_DIR}/detail/proxies/VersionProxy.functions.hpp
+    ${GEECORE_SRC_DIR}/detail/proxies/WinmmProxy.hpp
+    ${GEECORE_SRC_DIR}/detail/proxies/WinmmProxy.functions.hpp
 )
 
 set(
   GEECORE_SRC_FILES
     ${GEECORE_SRC_DIR}/Exception.cpp
+    ${GEECORE_SRC_DIR}/exceptions/Win32Exception.cpp
+
+    ${GEECORE_SRC_DIR}/Host.cpp
+    ${GEECORE_SRC_DIR}/HostBuilder.cpp
+
+    ${GEECORE_SRC_DIR}/detail/HostImage.cpp
+    ${GEECORE_SRC_DIR}/detail/ModuleImage.cpp
+
+    ${GEECORE_SRC_DIR}/detail/LoaderLifetime.cpp
+    ${GEECORE_SRC_DIR}/detail/ModuleLifetime.cpp
+    ${GEECORE_SRC_DIR}/detail/ProxyLifetime.cpp
+
+    ${GEECORE_SRC_DIR}/detail/DllProxy.cpp
+    ${GEECORE_SRC_DIR}/detail/proxies/D3d11Proxy.cpp
+    ${GEECORE_SRC_DIR}/detail/proxies/D3d11Proxy.functions.cpp
+    ${GEECORE_SRC_DIR}/detail/proxies/DxgiProxy.cpp
+    ${GEECORE_SRC_DIR}/detail/proxies/DxgiProxy.functions.cpp
+    ${GEECORE_SRC_DIR}/detail/proxies/VersionProxy.cpp
+    ${GEECORE_SRC_DIR}/detail/proxies/VersionProxy.functions.cpp
+    ${GEECORE_SRC_DIR}/detail/proxies/WinmmProxy.cpp
+    ${GEECORE_SRC_DIR}/detail/proxies/WinmmProxy.functions.cpp
 )
 
 get_property(GEECORE_USE_FOLDERS GLOBAL PROPERTY USE_FOLDERS)
@@ -129,6 +187,8 @@ target_link_libraries(
   GEEcore
     PUBLIC
       fmt::fmt
+      kangaru::kangaru
+      WIL::WIL
 )
 
 # -----------------------------------------------------------------------------

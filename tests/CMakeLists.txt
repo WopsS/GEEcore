@@ -8,6 +8,8 @@ set(
 set(
   GEECORE_TESTS_SRC_FILES
     Exception.cpp
+    exceptions/Win32Exception.cpp
+
     SpecialMemberFunctions.cpp
 
     detail/BaseMsgBox.cpp

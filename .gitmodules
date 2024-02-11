@@ -4,6 +4,12 @@
 [submodule "deps/fmt"]
 	path = deps/fmt
 	url = https://github.com/fmtlib/fmt.git
+[submodule "deps/kangaru"]
+	path = deps/kangaru
+	url = https://github.com/gracicot/kangaru.git
 [submodule "deps/trompeloeil"]
 	path = deps/trompeloeil
 	url = https://github.com/rollbear/trompeloeil.git
+[submodule "deps/wil"]
+	path = deps/wil
+	url = https://github.com/microsoft/wil.git

@@ -17,12 +17,10 @@ export default defineConfig({
 
         nav: [
             { text: "Home", link: "/" },
-            { text: "Guide", link: "/guide/what-is-geecore" }
+            { text: "Documentation", link: "/introduction/what-is-geecore" }
         ],
 
-        sidebar: {
-            "/guide/": { base: "/guide/", items: sidebar() }
-        },
+        sidebar: sidebar(),
 
         search: {
             provider: "local"
@@ -44,20 +42,34 @@ function sidebar(): DefaultTheme.SidebarItem[] {
         {
             text: "Introduction",
             collapsed: false,
+            base: "/introduction/",
             items: [
                 { text: "What is GEEcore?", link: "what-is-geecore" },
                 { text: "Getting Started", link: "getting-started" }
             ]
         },
         {
-            text: "Guide",
+            text: "Core Concepts",
             collapsed: false,
-            items: [{ text: "MessageBox", link: "messagebox" }]
+            base: "/core-concepts/",
+            items: [
+                { text: "Driver", link: "driver" },
+                { text: "Service Container", link: "service-container" }
+            ]
+        },
+        {
+            text: "The Basics",
+            collapsed: false,
+            base: "/basics/",
+            items: [
+                { text: "Host", link: "host" },
+                { text: "MessageBox", link: "messagebox" }
+            ]
         },
         {
             text: "Contributors",
             collapsed: false,
-            base: "/guide/contributors/",
+            base: "/contributors/",
             items: [
                 { text: "Coding Guidelines", link: "coding-guidelines" },
                 { text: "Testing Guidelines", link: "testing-guidelines" }
